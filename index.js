@@ -35,16 +35,16 @@ const addresses1 = [
 
 const bot = new Bot(process.env.TG_TOKEN)
 
-bot.api.setMyCommands([
-	{
-		command: 'add_adresses',
-		description: 'Додати нову адресу',
-	},
-	{
-		command: 'get_adresses',
-		description: 'Отримати свої адреси',
-	},
-])
+// bot.api.setMyCommands([
+// 	{
+// 		command: 'add_adresses',
+// 		description: 'Додати нову адресу',
+// 	},
+// 	{
+// 		command: 'get_adresses',
+// 		description: 'Отримати свої адреси',
+// 	},
+// ])
 
 bot.command('add_adresses', async ctx => {
 	await ctx.reply('121221', ctx => {
