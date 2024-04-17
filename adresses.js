@@ -9,6 +9,7 @@ const AddressSchema = new Schema({
 	real_address: {
 		type: String,
 		required: true,
+		unique: true,
 	},
 	personal_account: {
 		type: String,
