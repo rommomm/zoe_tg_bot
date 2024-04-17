@@ -48,16 +48,16 @@ const bot = new Bot(process.env.TG_TOKEN)
 
 bot.command('add_adresses', async ctx => {
 	try {
-		await ctx.reply('121221')
-		const newAddress = await Address.create({
+		await Address.create({
 			chat_id: '23',
 			real_address: '23',
 			personal_account: '23',
 			electricity_meter_type: '1',
 		})
-		console.log('New address created:', newAddress)
-	} catch (error) {
-		console.error('Error creating address:', error)
+		await ctx.reply('Address added successfully.')
+	} catch (err) {
+		console.error('Error adding address:', err)
+		await ctx.reply('Failed to add address.')
 	}
 })
 
