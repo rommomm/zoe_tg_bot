@@ -1,5 +1,20 @@
 import 'dotenv/config'
+import mongoose from 'mongoose'
 import { Bot, InlineKeyboard, Keyboard } from 'grammy'
+import AddressSchema from './adresses.js'
+
+const Address = mongoose.model('Address', AddressSchema)
+
+mongoose.set('strictQuery', false)
+const connectDb = async () => {
+	try {
+		const c = await mongoose.connect(process.env.MONGO_URI)
+		console.log(c.connection.host)
+	} catch (err) {
+		console.log(err)
+		process.exit(1)
+	}
+}
 
 const addresses = [
 	'Address 1',
@@ -32,7 +47,14 @@ bot.api.setMyCommands([
 ])
 
 bot.command('add_adresses', async ctx => {
-	await ctx.reply('121221')
+	await ctx.reply('121221', ctx => {
+		Address.create({
+			chat_id: '23',
+			real_address: '23',
+			personal_account: '23',
+			electricity_meter_type: '1',
+		})
+	})
 })
 
 bot.command('get_adresses', async ctx => {
@@ -61,4 +83,6 @@ bot.hears(
 	}
 )
 
-bot.start()
+connectDb().then(() => {
+	bot.start()
+})
