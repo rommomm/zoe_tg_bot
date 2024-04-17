@@ -83,6 +83,5 @@ bot.hears(
 	}
 )
 
-connectDb().then(() => {
-	bot.start()
-})
+connectDb()
+bot.start()
