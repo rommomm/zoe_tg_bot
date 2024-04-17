@@ -14,6 +14,7 @@ const AddressSchema = new Schema({
 	personal_account: {
 		type: String,
 		required: true,
+		unique: true,
 	},
 	electricity_meter_type: {
 		type: String,

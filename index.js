@@ -52,7 +52,7 @@ bot.command('add_adresses', async ctx => {
 			chat_id: '23',
 			real_address: '23',
 			personal_account: '23',
-			electricity_meter_type: '2',
+			electricity_meter_type: '5',
 		})
 		await ctx.reply('Address added successfully.')
 	} catch (err) {
