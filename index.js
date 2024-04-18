@@ -48,6 +48,7 @@ bot.api.setMyCommands([
 bot.command('add_address', async ctx => {
 	try {
 		ctx.session = {}
+		ctx.session.chat_id = ctx.msg.chat.id
 		let counter = 1
 		const inlineKeyboard = new InlineKeyboard()
 		Object.keys(remType).forEach(key => {
@@ -100,13 +101,12 @@ bot.command('get_addresses', async ctx => {
 
 bot.on('message', async ctx => {
 	try {
-		// console.log('ctx.session :>> ', ctx.session)
-		// if (!ctx.session.chat_id) {
-		// 	return await ctx.reply(
-		// 		'<b>🏠 Будь ласка вкажіть необхідну адресу /get_addresses для передачі показань</b>',
-		// 		{ parse_mode: 'HTML' }
-		// 	)
-		// }
+		if (!ctx.session.chat_id) {
+			return await ctx.reply(
+				'<b>🏠 Будь ласка вкажіть необхідну адресу /get_addresses для передачі показань</b>',
+				{ parse_mode: 'HTML' }
+			)
+		}
 
 		const messageText = ctx.message.text.trim().toLowerCase()
 		const type_counter = ctx.session.type_counter
@@ -411,10 +411,14 @@ bot.on('callback_query:data', async ctx => {
 
 bot.catch(err => {
 	const ctx = err.ctx
-	console.error(`Error`)
-
+	console.error(`Error while handling update ${ctx.update.update_id}:`)
+	const e = err.error
 	if (e instanceof GrammyError) {
-		console.log('e.description :>> ', e.description)
+		console.error('Error in request:', e.description)
+	} else if (e instanceof HttpError) {
+		console.error('Could not contact Telegram:', e)
+	} else {
+		console.error('Unknown error:', e)
 	}
 })
 
