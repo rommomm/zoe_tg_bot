@@ -60,7 +60,6 @@ bot.command('add_address', async ctx => {
 			parse_mode: 'HTML',
 		})
 
-		ctx.session.chat_id = ctx.msg.chat.id
 		ctx.session.currentStep = 1
 	} catch (err) {
 		console.error('Error handling add_address command:', err.message)
@@ -101,12 +100,13 @@ bot.command('get_addresses', async ctx => {
 
 bot.on('message', async ctx => {
 	try {
-		if (!ctx.session.chat_id) {
-			return await ctx.reply(
-				'<b>🏠 Будь ласка вкажіть необхідну адресу /get_addresses для передачі показань</b>',
-				{ parse_mode: 'HTML' }
-			)
-		}
+		// console.log('ctx.session :>> ', ctx.session)
+		// if (!ctx.session.chat_id) {
+		// 	return await ctx.reply(
+		// 		'<b>🏠 Будь ласка вкажіть необхідну адресу /get_addresses для передачі показань</b>',
+		// 		{ parse_mode: 'HTML' }
+		// 	)
+		// }
 
 		const messageText = ctx.message.text.trim().toLowerCase()
 		const type_counter = ctx.session.type_counter
