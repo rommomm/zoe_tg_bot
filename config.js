@@ -43,37 +43,34 @@ export async function sendDataToServer(data) {
 			formData.append(key, data[key])
 		}
 
-		const response = await axios.post(
-			'https://www.zoe.com.ua/pokazania.php',
-			formData,
-			{
-				headers: {
-					Accept:
-						'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-					'Accept-Encoding': 'gzip, deflate, br, zstd',
-					'Accept-Language': 'ru,en-US;q=0.9,en;q=0.8',
-					'Cache-Control': 'max-age=0',
-					'Content-Type': 'application/x-www-form-urlencoded',
-					Host: 'www.zoe.com.ua',
-					Origin: 'https://www.zoe.com.ua',
-					Referer: 'https://www.zoe.com.ua/pokazania.php',
-					'Sec-Ch-Ua':
-						'"Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
-					'Sec-Ch-Ua-Mobile': '?0',
-					'Sec-Ch-Ua-Platform': '"Windows"',
-					'Sec-Fetch-Dest': 'document',
-					'Sec-Fetch-Mode': 'navigate',
-					'Sec-Fetch-Site': 'same-origin',
-					'Sec-Fetch-User': '?1',
-					'Upgrade-Insecure-Requests': '1',
-					'User-Agent':
-						'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
-				},
-				httpsAgent: new https.Agent({
-					rejectUnauthorized: true,
-				}),
-			}
-		)
+		const response = await fetch('https://www.zoe.com.ua/pokazania.php', {
+			method: 'POST',
+			body: formData,
+			headers: {
+				Accept:
+					'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+				'Accept-Encoding': 'gzip, deflate, br, zstd',
+				'Accept-Language': 'ru,en-US;q=0.9,en;q=0.8',
+				'Cache-Control': 'max-age=0',
+				'Content-Type': 'application/x-www-form-urlencoded',
+				Host: 'www.zoe.com.ua',
+				Origin: 'https://www.zoe.com.ua',
+				Referer: 'https://www.zoe.com.ua/pokazania.php',
+				'Sec-Ch-Ua':
+					'"Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
+				'Sec-Ch-Ua-Mobile': '?0',
+				'Sec-Ch-Ua-Platform': '"Windows"',
+				'Sec-Fetch-Dest': 'document',
+				'Sec-Fetch-Mode': 'navigate',
+				'Sec-Fetch-Site': 'same-origin',
+				'Sec-Fetch-User': '?1',
+				'Upgrade-Insecure-Requests': '1',
+				'User-Agent':
+					'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+			},
+			// Если вы хотите использовать httpsAgent с fetch, вам нужно установить стороннюю библиотеку fetch с поддержкой агентов
+			// agent: new https.Agent({ rejectUnauthorized: false }),
+		})
 
 		if (response.status != 200) {
 			throw new Error(`Failed to send data to server: ${response.statusText}`)
